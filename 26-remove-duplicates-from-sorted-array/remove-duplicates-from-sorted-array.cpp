@@ -6,7 +6,6 @@ public:
         for(int i=0;i<nums.size();i++){
             s.insert(nums[i]);
         }
-        // nums.erase(nums.begin(),nums.end());
         int z=0;
         for(auto i : s){
             nums[z]=i;
