@@ -19,11 +19,10 @@ public:
         }
         int mid=cnt/2;
         int t=0;
-        temp=head;
         while(t<mid){
-            temp=temp->next;
+            head=head->next;
             t++;
         }
-        return temp;
+        return head;
     }
 };
