@@ -14,32 +14,16 @@ public:
         if(head==nullptr){
             return head;
         }
-        vector<int> left;
-        vector<int> right;
         ListNode* temp=head;
-        int c=1;
-        while(temp){
-            if(c%2==0){
-                right.push_back(temp->val);
-            }
-            else{
-                left.push_back(temp->val);
-            }
+        ListNode* temp1=head->next;
+        ListNode* temp2=head->next;
+        while(temp->next!=nullptr && temp1->next!=nullptr){
+            temp->next=temp->next->next;
+            temp1->next=temp1->next->next;
             temp=temp->next;
-            c++;
+            temp1=temp1->next;
         }
-        int i=0;
-        temp=head;
-        while(i<=left.size()-1){
-            temp->val=left[i];
-            i++;
-            temp=temp->next;
-        }i=0;
-        while(temp!=nullptr){
-            temp->val=right[i];
-            temp=temp->next;
-            i++;
-        }
-        return head;
+        temp->next=temp2;
+        return head;;
     }
 };
