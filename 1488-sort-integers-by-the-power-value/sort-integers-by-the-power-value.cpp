@@ -16,8 +16,8 @@ public:
                 }
             }
             p.push_back({count,i});
-            sort(p.begin(),p.end());
         }
+        sort(p.begin(),p.end());
         return p[k-1].second;
     }
 };
