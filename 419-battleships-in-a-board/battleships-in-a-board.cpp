@@ -10,7 +10,7 @@ public:
         eraser(board,i+1,j);
         eraser(board,i-1,j);
         eraser(board,i,j+1);
-        eraser(board,i,j-1);
+        // eraser(board,i,j-1);
     }
     int countBattleships(vector<vector<char>>& board) {
         int count=0;
