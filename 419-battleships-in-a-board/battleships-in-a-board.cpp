@@ -8,7 +8,7 @@ public:
         }
         board[i][j]='.';
         eraser(board,i+1,j);
-        eraser(board,i-1,j);
+        // eraser(board,i-1,j);
         eraser(board,i,j+1);
         // eraser(board,i,j-1);
     }
