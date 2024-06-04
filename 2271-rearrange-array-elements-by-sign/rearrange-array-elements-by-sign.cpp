@@ -1,42 +1,19 @@
 class Solution {
 public:
     vector<int> rearrangeArray(vector<int>& nums) {
-        vector<int> vp;
-        vector<int> vn;
-        vector<int> ans;
-        for(int i=0;i<nums.size();i++){
-            if(nums[i]>0){
-                vp.push_back(nums[i]);
+        vector<int> v(nums.size(),0);
+        int i=0;
+        int j=1;
+        for(int z=0;z<nums.size();z++){
+            if(nums[z]>0){
+                v[i]=nums[z];
+                i+=2;
             }
             else{
-                vn.push_back(nums[i]);
+                v[j]=nums[z];
+                j+=2;
             }
-        }int z=0;
-        while(z<vp.size() && z<vn.size()){
-            ans.push_back(vp[z]);
-            ans.push_back(vn[z]);
-            z++;
         }
-        return ans;
+        return v;
     }
 };
-// class Solution {
-// public:
-//     vector<int> rearrangeArray(vector<int>& nums) {
-//         int n = nums.size();
-//         vector<int> ans(n, 0);
-//         int positiveElementIndex = 0, negativeElementIndex = 1;
-
-//         for(auto num : nums){
-//             if(num > 0){
-//                 ans[positiveElementIndex] = num;
-//                 positiveElementIndex += 2;
-//             }
-//             else if(num < 0){
-//                 ans[negativeElementIndex] = num;
-//                 negativeElementIndex += 2;
-//             }
-//         }
-//         return ans;
-//     }
-// };
