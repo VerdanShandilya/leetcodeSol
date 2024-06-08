@@ -1,19 +1,16 @@
 class Solution {
 public:
-    int numberOfSteps(int num) {
+    int helper(int num, int ans){
         if(num==0){
-            return 0;
+            return ans;
         }
-        int count=0;
-        while(num!=0){
-            if(num%2!=0){
-                num=num-1;
-                count++;
-            }
-            num=num/2;
-            count++;
+        if(num%2==0){
+        return helper(num/2,ans+1);
         }
-    
-        return count-1;
+        
+            return helper(num-1,ans+1);
+    }
+    int numberOfSteps(int num) {
+        return helper(num,0);
     }
 };
