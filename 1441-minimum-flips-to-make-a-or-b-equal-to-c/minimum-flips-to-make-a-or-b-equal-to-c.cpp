@@ -3,7 +3,9 @@ public:
     int minFlips(int a, int b, int c) {
         int count=0;
         int n=c;
-        while(a>0 || b>0 || c>0){
+        int l=max(log2(a),log2(b));
+        int f=int(max(l,int(log2(c))));
+        for(int i=0;i<=f;i++){
             int ma=a&1;
             int mb=b&1;
             int mc=c&1;
