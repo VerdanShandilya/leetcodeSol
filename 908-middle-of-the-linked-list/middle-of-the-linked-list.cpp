@@ -14,15 +14,15 @@ public:
         ListNode* temp=head;
         int cnt=0;
         while(temp!=nullptr){
-            cnt++;
             temp=temp->next;
+            cnt++;
         }
-        int mid=cnt/2;
-        int t=0;
-        while(t<mid){
-            head=head->next;
-            t++;
+        temp=head;
+        cnt=cnt/2;
+        while(cnt>0){
+            temp=temp->next;
+            cnt--;
         }
-        return head;
+        return temp;
     }
 };
