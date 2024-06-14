@@ -15,26 +15,24 @@ public:
             return nullptr;
         }
         ListNode* temp=head;
-        int l=0;
+        int cnt=0;
         while(temp!=nullptr){
-            l++;
+            cnt++;
             temp=temp->next;
         }
-        if(l==n){
+        if(cnt==n){
             return head->next;
         }
-        ListNode* temp1=head;
-        l=l-n;
-        int c=1;
-        while(c<l){
-            temp1=temp1->next;
-            c++;
+        cnt=cnt-n;
+        temp=head;
+        for(int i=0;i<cnt-1;i++){
+            temp=temp->next;
         }
         if(n==1){
-            temp1->next=nullptr;
+            temp->next=nullptr;
         }
         else{
-            temp1->next=temp1->next->next;
+            temp->next=temp->next->next;
         }
         return head;
     }
