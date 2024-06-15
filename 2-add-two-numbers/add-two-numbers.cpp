@@ -13,30 +13,57 @@ public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         int extra=0;
         int sum=0;
-        ListNode* ans=l1;
-        ListNode* dummy=new ListNode();
-        ListNode* temp=dummy;
-        while(ans!=nullptr || l2!=nullptr){
+        ListNode* ans;
+        ListNode* ans1;
+        ListNode* temp;
+        temp=l1;
+        int cnt=0;
+        int cnt1=0;
+        while(temp){
+            temp=temp->next;
+            cnt++;
+        }
+        temp=l2;
+        while(temp){
+            temp=temp->next;
+            cnt1++;
+        }
+        if(cnt>=cnt1){
+            ans=l1;
+            ans1=l2;
+        }
+        else{
+            ans=l2;
+            ans1=l1;
+        }
+        while(ans!=nullptr || ans1!=nullptr){
             sum=0;
             if(ans!=nullptr){
                 sum+=ans->val;
-                ans=ans->next;
+                // ans=ans->next;
             }
-            if(l2!=nullptr){
-                sum+=l2->val;
-                l2=l2->next;
+            if(ans1!=nullptr){
+                sum+=ans1->val;
+                ans1=ans1->next;
             }
             sum+=extra;
             extra=sum/10;
-            // ans->val=sum%10;
-            ListNode* dummy1=new ListNode(sum%10);
-            temp->next=dummy1;
-            temp=temp->next;
+            // ListNode* dummy1=new ListNode(sum%10);
+            // temp->next=dummy1;
+            // temp=temp->next;
+            ans->val=sum%10;
+            if(ans->next==nullptr){
+                temp=ans;
+            }
+            ans=ans->next;
         }
         if(extra!=0){
             ListNode* dummy2=new ListNode(extra);
             temp->next=dummy2;
         }
-        return dummy->next;
+        if(cnt>=cnt1){
+            return l1;
+        }
+        return l2;
     }
 };
