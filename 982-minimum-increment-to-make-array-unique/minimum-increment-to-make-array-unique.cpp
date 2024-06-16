@@ -17,22 +17,3 @@ public:
         return count;
     }
 };
-
-
-
-// class Solution {
-// public:
-//     int minIncrementForUnique(vector<int>& A) {
-//   sort(begin(A), end(A));
-//          int res = 0;
-//   for (auto i = 1; i < A.size(); ++i) {
-//       if(A[i]>A[i-1]){
-//           continue;
-//       }else{
-//           res += A[i-1]-A[i]+1;
-//           A[i] = A[i-1]+1;
-//       }
-//   }
-//   return res;
-// }
-// };
