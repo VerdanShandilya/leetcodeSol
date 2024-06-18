@@ -40,7 +40,6 @@ public:
             sum=0;
             if(ans!=nullptr){
                 sum+=ans->val;
-                // ans=ans->next;
             }
             if(ans1!=nullptr){
                 sum+=ans1->val;
@@ -48,9 +47,6 @@ public:
             }
             sum+=extra;
             extra=sum/10;
-            // ListNode* dummy1=new ListNode(sum%10);
-            // temp->next=dummy1;
-            // temp=temp->next;
             ans->val=sum%10;
             if(ans->next==nullptr){
                 temp=ans;
