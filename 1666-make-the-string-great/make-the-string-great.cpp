@@ -1,22 +1,22 @@
 class Solution {
 public:
     string makeGood(string s) {
-        stack<char> v;
         string ans="";
+        stack<char> st;
         for(int i=s.size()-1;i>=0;i--){
-            if(v.size()==0){
-                v.push(s[i]);
+            if(st.size()==0){
+                st.push(s[i]);
             }
-            else if(abs(int(s[i])-int(v.top()))==32){
-                v.pop();
+            else if(abs(int(s[i])-int(st.top()))==32){
+                st.pop();
             }
             else{
-                v.push(s[i]);
+                st.push(s[i]);
             }
         }
-        while(!v.empty()){
-            ans+=v.top();
-            v.pop();
+        while(!st.empty()){
+            ans+=st.top();
+            st.pop();
         }
         return ans;
     }
