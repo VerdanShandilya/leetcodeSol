@@ -1,31 +1,31 @@
 class Solution {
 public:
-    bool checkValidString(string s) {
-        stack<char> v;
-        stack<char> vv;
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='('){
-                v.push(i);
+    bool checkValidString(string a) {
+        stack<char> s;
+        stack<int> s1;
+        for(int i=0;i<a.size();i++){
+            if(a[i]=='('){
+                s.push(i);
             }
-            else if(s[i]=='*'){
-                vv.push(i);
+            else if(a[i]=='*'){
+                s1.push(i);
             }
             else{
-                if(!v.empty())
-                    v.pop();
-                else if(!vv.empty())
-                    vv.pop();
-                else
+                if(!s.empty()){
+                    s.pop();
+                }
+                else if(!s1.empty()){
+                    s1.pop();
+                }
+                else{
                     return false;
+                }
             }
         }
-        while(!v.empty() && !vv.empty() && v.top()<vv.top()){
-            v.pop();
-            vv.pop();
+        while(!s.empty() && !s1.empty() && s.top()<s1.top()){
+            s.pop();
+            s1.pop();
         }
-        if(v.empty()){
-            return true;
-        }
-        return false;
+        return s.empty();
     }
 };
