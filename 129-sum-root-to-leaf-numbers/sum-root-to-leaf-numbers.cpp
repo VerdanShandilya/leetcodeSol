@@ -11,22 +11,19 @@
  */
 class Solution {
 public:
-    int count=0;
     int ans=0;
-    int helper(TreeNode* root,int count){
+    int helper(TreeNode* root, int count){
         if(root!=nullptr){
             count=(count*10)+root->val;
             if(root->left==nullptr && root->right==nullptr){
-                // count=(count*10)+root->val;
-                ans=ans+count;
+                ans+=count;
             }
-            // count=(count*10)+root->val;
-            helper(root->left,count);
-            helper(root->right,count);
+        helper(root->left,count);
+        helper(root->right,count);
         }
         return ans;
     }
-    int sumNumbers(TreeNode* root) {
-        return helper(root,count);
+    int sumNumbers(TreeNode* root){
+        return helper(root,0);
     }
 };
