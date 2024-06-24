@@ -11,24 +11,24 @@
  */
 class Solution {
 public:
-    int count=0;
-    bool helper(TreeNode* root,int s,int count){
+    bool helper(TreeNode* root, int targetSum,int sum){
         if(root==nullptr){
-            return 0;
+            return false;
         }
-        if(root->right==nullptr && root->left==nullptr){
-            count+=root->val;
-            return count==s;
+        if(root->left==root->right){
+            sum+=root->val;
+            if(sum==targetSum){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
-        count+=root->val;
-        bool a=helper(root->left,s,count);
-        bool b=helper(root->right,s,count);
+        bool a=helper(root->left,targetSum,sum+root->val);
+        bool b=helper(root->right,targetSum,sum+root->val);
         return a || b;
     }
     bool hasPathSum(TreeNode* root, int targetSum) {
-        if(root==nullptr){
-            return root;
-        }
-        return helper(root,targetSum,count);
+        return helper(root,targetSum,0);
     }
 };
