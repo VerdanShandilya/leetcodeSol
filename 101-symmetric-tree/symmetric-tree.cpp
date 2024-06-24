@@ -11,15 +11,6 @@
  */
 class Solution {
 public:
-    // vector<int> v;
-    // void check(TreeNode* root){
-    //     if(root==nullptr){
-    //         return;
-    //     }
-    //     check(root->left);
-    //     v.push_back(root->val);
-    //     check(root->right);
-    // }
     bool helper(TreeNode* root,TreeNode* root1){
         if(root==nullptr && root1!=nullptr){
             return false;
@@ -38,20 +29,6 @@ public:
         return a&&b;
     }
     bool isSymmetric(TreeNode* root) {
-        // check(root);
-        // int a=0;
-        // int b=v.size()-1;
-        // for(int i=0;i<v.size();i++){
-        //     cout<<v[i];
-        // }
-        // while(a<b){
-        //     if(v[a]!=v[b]){
-        //         return false;
-        //     }
-        //     a++;
-        //     b--;
-        // }
-        // return true;
         return helper(root,root);
     }
 };
