@@ -16,10 +16,10 @@ public:
         if(root==nullptr){
             return ans;
         }
+        vector<int> v;
         queue<TreeNode*> q;
         q.push(root);
         q.push(nullptr);
-        vector<int> v;
         while(!q.empty()){
             TreeNode* temp=q.front();
             q.pop();
@@ -39,7 +39,6 @@ public:
                     q.push(temp->right);
                 }
             }
-
         }
         return ans;
     }
