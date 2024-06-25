@@ -23,20 +23,20 @@ public:
         while(!q.empty()){
             TreeNode* temp=q.front();
             q.pop();
-            if(temp==nullptr){
-                ans.push_back(v);
-                v.clear();
-                if(!q.empty()){
-                    q.push(nullptr);
-                }
-            }
-            else{
+            if(temp!=nullptr){
                 v.push_back(temp->val);
                 if(temp->left){
                     q.push(temp->left);
                 }
                 if(temp->right){
                     q.push(temp->right);
+                }
+            }
+            else{
+                ans.push_back(v);
+                v.clear();
+                if(!q.empty()){
+                    q.push(nullptr);
                 }
             }
         }
