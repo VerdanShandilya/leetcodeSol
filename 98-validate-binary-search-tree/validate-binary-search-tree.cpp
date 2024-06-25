@@ -11,22 +11,26 @@
  */
 class Solution {
 public:
-    vector<int> v;
+    TreeNode* prev=nullptr;
+    TreeNode* temp1;
+    bool ans=true;
     void helper(TreeNode* root){
         if(root==nullptr){
-            return ;
+            return;
         }
-        isValidBST(root->left);
-        v.push_back(root->val);
-        isValidBST(root->right);
-    }
-    bool isValidBST(TreeNode* root) {
-        helper(root);
-        for(int i=1;i<v.size();i++){
-            if(v[i]<=v[i-1]){
-                return false;
+        helper(root->left);
+        temp1=root;
+        if(prev!=nullptr){
+            if(prev->val>=temp1->val){
+            ans=false;
+            return;
             }
         }
-        return true;
+        prev=temp1;
+        helper(root->right);
+    }
+    bool isValidBST(TreeNode* root) {
+        helper(root); 
+        return ans; 
     }
 };
