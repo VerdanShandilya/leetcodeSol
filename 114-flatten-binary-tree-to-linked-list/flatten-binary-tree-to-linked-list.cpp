@@ -25,17 +25,16 @@ public:
         helper(root);
         root->left=nullptr;
         q.pop();
-        TreeNode* current = root;
         while(!q.empty()){
-            current->left=nullptr;
-            if(current->left==current->right){
+            root->left=nullptr;
+            if(root->left==root->right){
                 TreeNode* temp=new TreeNode(q.front()->val);
-                current->right=temp;
+                root->right=temp;
             }
             else{
-                current->right=q.front();
+                root->right=q.front();
             }
-            current=current->right;
+            root=root->right;
             q.pop();
         }
     }
