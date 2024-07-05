@@ -1,23 +1,22 @@
 class Solution {
 public:
-    int ans=INT_MIN;
-    int helper(vector<int>& nums,int i,vector<int> &dp){
-        if(i==nums.size()-1){
-            return nums[i];
-        }
-        if(i>=nums.size()){
+    int helper(vector<int>& nums,vector<int>& dp,int index){
+        if(index>nums.size()-1){
             return 0;
         }
-        if(dp[i]!=-1){
-            return dp[i];
+        if(index==nums.size()-1){
+            return nums[index];
         }
-        int pick=nums[i]+helper(nums,i+2,dp);
-        int nopick=helper(nums,i+1,dp);
-        dp[i]=max(pick,nopick);
-        return dp[i];
+        if(dp[index]!=-1){
+            return dp[index];
+        }
+        int one=nums[index]+helper(nums,dp,index+2);
+        int two=helper(nums,dp,index+1);
+        dp[index]=max(one,two);
+        return dp[index];
     }
     int rob(vector<int>& nums) {
-        vector<int> dp(nums.size(), -1);
-        return helper(nums,0,dp);
+        vector<int> dp(nums.size(),-1);
+        return helper(nums,dp,0);
     }
 };
