@@ -1,18 +1,24 @@
 class Solution {
 public:
-    int helper(int n,unordered_map<int,int> &dp){
-        if(n==0 || n==1){
+    int ans=0;
+    int helper(int n,vector<int> &dp){
+        if(n==0){
             return 1;
         }
-        if(dp.find(n)==dp.end()){
-            int one=helper(n-1,dp);
-            int two=helper(n-2,dp);
-            dp[n]=one+two;
+        if(n<0){
+            return 0;
         }
+        if(dp[n]!=-1){
+            return dp[n];
+        }
+        int a=helper(n-1,dp);
+        int b=helper(n-2,dp);
+        dp[n]=a+b;
         return dp[n];
+        
     }
     int climbStairs(int n) {
-        unordered_map<int,int> dp;
+        vector<int> dp(n+1,-1);
         return helper(n,dp);
     }
 };
