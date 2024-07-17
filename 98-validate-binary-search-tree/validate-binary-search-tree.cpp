@@ -12,25 +12,25 @@
 class Solution {
 public:
     TreeNode* prev=nullptr;
-    TreeNode* temp1;
+    TreeNode* temp;
     bool ans=true;
     void helper(TreeNode* root){
         if(root==nullptr){
             return;
         }
         helper(root->left);
-        temp1=root;
+        temp=root;
         if(prev!=nullptr){
-            if(prev->val>=temp1->val){
-            ans=false;
-            return;
+            if(temp->val<=prev->val){
+                ans=false;
+                return;
             }
         }
-        prev=temp1;
+        prev=root;
         helper(root->right);
     }
     bool isValidBST(TreeNode* root) {
-        helper(root); 
-        return ans; 
+        helper(root);
+        return ans;
     }
 };
