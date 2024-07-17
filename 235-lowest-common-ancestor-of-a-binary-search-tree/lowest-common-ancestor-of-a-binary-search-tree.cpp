@@ -10,25 +10,25 @@
 
 class Solution {
 public:
-TreeNode* ans;
+    TreeNode* ans;
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root->val==p->val){
+        if(p->val==root->val){
             ans=p;
-            return p;
+            return ans;
         }
-        if(root->val==q->val){
+        if(q->val==root->val){
             ans=q;
-            return q;
+            return ans;
         }
-        if((p->val<root->val && q->val>root->val) || p->val>root->val && q->val<root->val){
+        if((p->val>root->val && q->val<root->val) || (p->val<root->val && q->val>root->val)){
             ans=root;
-            return root;
+            return ans;
         }
-        else if(p->val<root->val && q->val<root->val){
-            lowestCommonAncestor(root->left,p,q);
+        else if(q->val>root->val && p->val>root->val){
+            lowestCommonAncestor(root->right,p,q);
         }
         else{
-            lowestCommonAncestor(root->right,p,q);
+            lowestCommonAncestor(root->left,p,q);
         }
         return ans;
     }
