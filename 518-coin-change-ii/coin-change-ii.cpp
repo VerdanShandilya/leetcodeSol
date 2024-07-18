@@ -18,12 +18,7 @@ public:
         return dp[amount][i]=a+b;
     }
     int change(int amount, vector<int>& coins) {
-        vector<vector<int>> dp( amount+1, vector<int> (coins.size()));  
-        for(int i = 0; i <amount+1; i++) { 
-            for(int j = 0; j < coins.size(); j++) { 
-                dp[i][j] =-1; 
-            } 
-        } 
+        vector<vector<int>> dp( amount+1, vector<int> (coins.size(),-1));  
         return helper(coins,amount,0,dp);
     }
 };
