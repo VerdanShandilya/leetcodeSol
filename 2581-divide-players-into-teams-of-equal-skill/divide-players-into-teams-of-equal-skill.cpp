@@ -17,7 +17,7 @@ public:
             if(ex!=(skill[i]+skill[j])) {
                 return -1;
             }
-            ans+=(long long)skill[i]*skill[j];
+            ans+=skill[i]*skill[j];
             i++;
             j--;
         }
