@@ -13,16 +13,7 @@ public:
                 s.push(a[i]);
             }
         }
-        int sc=0;
-        int ec=0;
-        while(!s.empty()){
-            if(s.top()=='[')
-            sc++;
-            else if(s.top()==']'){
-                ec++;
-            }
-            s.pop();
-        }
+        int sc=s.size()/2;
         if(sc%2==0){
             return sc/2;
         }
