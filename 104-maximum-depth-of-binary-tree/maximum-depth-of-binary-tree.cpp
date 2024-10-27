@@ -15,9 +15,9 @@ public:
         if(!root){
             return 0;
         }
-        int a=1+helper(root->left);
-        int b=1+helper(root->right);
-        return max(a,b);
+        int a=helper(root->left);
+        int b=helper(root->right);
+        return 1+max(a,b);
     }
     int maxDepth(TreeNode* root) {
         return helper(root);
