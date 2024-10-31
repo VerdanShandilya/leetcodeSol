@@ -7,7 +7,7 @@ public:
         if(x==matrix.size()-1){
             return matrix[x][y];
         }
-        if(dp[x][y]!=-101){
+        if(dp[x][y]!=-2){
             return dp[x][y];
         }
         int a=helper(matrix,x+1,y-1,dp);
@@ -16,7 +16,7 @@ public:
         return dp[x][y]=matrix[x][y]+min(a,min(b,c));
     }
     int minFallingPathSum(vector<vector<int>>& matrix) {
-        vector<vector<int>> dp(matrix.size(),vector<int> (matrix.size(),-101));
+        vector<vector<int>> dp(matrix.size(),vector<int> (matrix.size(),-2));
         int ans=INT_MAX;
         for(int i=0;i<matrix.size();i++){
             ans=min(ans,helper(matrix,0,i,dp));
