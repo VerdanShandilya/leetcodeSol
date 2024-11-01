@@ -1,27 +1,28 @@
 class Solution {
 public:
-    int helper(vector<int>& prices,int i,int buy,vector<vector<int>> &dp){
-        if(i==prices.size()){
+    int helper(vector<int>& prices,int index,int a,vector<vector<int>> &dp){
+        if(index>=prices.size()){
             return 0;
         }
-        if(dp[i][buy]!=-1){
-            return dp[i][buy];
+        if(dp[index][a]!=-1){
+            return dp[index][a];
         }
-        int profit=0;
-        if(buy==1){
-            int buy=-prices[i]+helper(prices,i+1,0,dp);
-            int notbuy=helper(prices,i+1,1,dp);
-            profit= max(buy,notbuy);
+        int buy=0;
+        int notbuy=0;
+        int sell=0;
+        int notsell=0;
+        if(a==0){
+            buy=-prices[index]+helper(prices,index+1,1,dp);
+            notbuy=helper(prices,index+1,0,dp);
         }
         else{
-            int sell=prices[i]+helper(prices,i+1,1,dp);
-            int notsell=helper(prices,i+1,0,dp);
-            profit=max(sell,notsell);
+            sell=prices[index]+helper(prices,index+1,0,dp);
+            notsell=helper(prices,index+1,1,dp);
         }
-        return dp[i][buy]=profit;
+        return dp[index][a]=max({buy,notbuy,sell,notsell});
     }
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>>dp(prices.size()+1,vector<int>(2,-1));
-        return helper(prices,0,1,dp);
+        vector<vector<int>> dp(prices.size(),vector<int> (2,-1));
+        return helper(prices,0,0,dp);
     }
 };
