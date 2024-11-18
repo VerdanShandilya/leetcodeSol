@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<string> ans;
-    void helper(string digits,int i,string a,string *arr){
+    void helper(string a,string digits,string *arr,int i){
         if(i==digits.size()){
             ans.push_back(a);
             return;
@@ -9,7 +9,7 @@ public:
         char ch=digits[i];
         string b=arr[ch-'0'];
         for(int j=0;j<b.size();j++){
-            helper(digits,i+1,a+b[j],arr);
+            helper(a+b[j],digits,arr,i+1);
         }
     }
     vector<string> letterCombinations(string digits) {
@@ -17,7 +17,7 @@ public:
         if(digits.size()==0)
             return a;
         string arr[]={"0","0","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        helper(digits,0,"",arr);
+        helper("",digits,arr,0);
         return ans;
     }
 };
