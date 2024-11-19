@@ -9,11 +9,13 @@ public:
         while(r<nums.size()){
             sum+=nums[r];
             count++;
-            while(sum>=target){
-                ans=min(ans,count);
-                sum-=nums[l];
-                l++;
-                count--;
+            if(sum>=target){
+                while(sum>=target){
+                    ans=min(ans,count);
+                    sum-=nums[l];
+                    l++;
+                    count--;
+                }
             }
             r++;
         }
