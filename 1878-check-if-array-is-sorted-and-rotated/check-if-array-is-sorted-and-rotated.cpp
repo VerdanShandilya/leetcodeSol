@@ -1,18 +1,15 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
-        int count=0;
+        int diff=0;
         for(int i=1;i<nums.size();i++){
-            if(nums[i-1]>nums[i]){
-                count++;
+            if(nums[i]<nums[i-1]){
+                diff++;
             }
         }
-        if(nums[nums.size()-1]>nums[0]){
-            count++;
+        if((diff==1 && nums[0]>=nums[nums.size()-1]) || diff==0){
+            return true;
         }
-        if(count>1){
-            return false;
-        }
-        return true;
+        return false;
     }
 };
