@@ -1,67 +1,34 @@
-// class Solution {
-// public:
-//     int shipWithinDays(vector<int>& weights, int days) {
-//         int l=1;
-//         int h=0;
-//         for(int i=0;i<weights.size();i++){
-//             h+=weights[i];
-//         }
-//         int ans=0;
-//         while(l<=h){
-//             int mid=(h+l)/2;
-//             int count=0;
-//             int d=0;
-//             for(int i=0;i<weights.size();i++){
-//                 if((count+weights[i])<mid){
-//                     count+=weights[i];
-//                 }
-//                 else if((count+weights[i])==mid){
-//                     d++;
-//                     count=0;
-//                 }
-//                 else{
-//                     count=weights[i];
-//                     d++;
-//                 }
-//             }
-//             if(d<=days){
-//                 ans=mid;
-//                 h=mid-1;
-//             }
-//             else{
-//                 l=mid+1;
-//             }
-//         }
-//         return ans;
-//     }
-// };
-
-
 class Solution {
 public:
     int shipWithinDays(vector<int>& weights, int days) {
-        int maxWeight = -1, totalWeight = 0;
-        for (int weight : weights) {
-            maxWeight = max(maxWeight, weight);
-            totalWeight = totalWeight + weight;
+        int high=0;
+        int l=-1;
+        for(int i=0;i<weights.size();i++){
+            high+=weights[i];
+            l=max(weights[i],l);
         }
-        //here weight and total weight work as left and right pointer of bunary search
-        while (maxWeight < totalWeight) {
-            int midWeight = maxWeight + (totalWeight - maxWeight) / 2;
-            int daysNeeded = 1, currWeight = 0;
-            for (int weight : weights) {
-                if (currWeight + weight > midWeight) {
-                    daysNeeded++;
-                    currWeight = 0;
+        int ans=0;
+        while(l<=high){
+            int mid=l+(high-l)/2;
+            int tdays=1;
+            int cap=0;
+            for(int i=0;i<weights.size();i++){
+                if(cap+weights[i]<=mid){
+                    cap+=weights[i];
                 }
-                currWeight = currWeight + weight;
+                else{
+                    tdays++;
+                    cap=weights[i];
+                }
             }
-            if (daysNeeded > days) {
-                maxWeight = midWeight + 1;
-            } else {
-                totalWeight = midWeight;
+            if(tdays>days){
+                l=mid+1;
+            }
+            else{
+                ans=mid;
+                high=mid-1;
             }
         }
-        return maxWeight;
+        return ans;
     }
 };
