@@ -14,13 +14,7 @@ public:
                 l++;
             }
             r++;
-            int count=0;
-            for(auto i : m){
-                if(i.second>0){
-                    count++;
-                }
-            }
-            ans=max(ans,count);
+            ans=max(ans,r-l);
         }
         return ans;
     }
