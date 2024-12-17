@@ -1,25 +1,25 @@
 class Solution {
 public:
-    int helper(vector<int>& coins, int amount, int i,vector<vector<int>> &memo) {
-        if (amount == 0) {
-            return 0;
-        }
-        if (i > coins.size() - 1|| amount<0) {
+    int helper(vector<int>& coins, int amount,int index,vector<vector<int>> &dp){
+        if(amount<0 || index>coins.size()-1){
             return INT_MAX-1;
         }
-        if(memo[amount][i]!= -1) return memo[amount][i];
-        int a=1+helper(coins, amount - coins[i], i,memo);
-        int b=helper(coins, amount, i + 1,memo);
-        return memo[amount][i] =min(a,b);
-    }
-
-    int coinChange(vector<int>& coins, int amount) {
-        vector<vector<int>> memo;
-        memo.resize(amount + 1,vector<int>(coins.size(), -1));
-        int a=helper(coins, amount, 0,memo);
-        if (a<INT_MAX-1) {
-            return a;
+        if(dp[index][amount]!=-1){
+            return dp[index][amount];
         }
-        return -1;
+        if(amount==0){
+            return 0;
+        }
+        int a=1+helper(coins,amount-coins[index],index,dp);
+        int b=helper(coins,amount,index+1,dp);
+        return dp[index][amount]=min(a,b);
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        vector<vector<int>> dp(coins.size(),vector<int> (amount+1,-1));
+        int ans=helper(coins,amount,0,dp);
+        if(ans==INT_MAX-1){
+            return -1;
+        }
+        return ans;
     }
 };
