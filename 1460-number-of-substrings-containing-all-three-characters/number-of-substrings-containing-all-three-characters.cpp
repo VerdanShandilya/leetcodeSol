@@ -1,20 +1,31 @@
 class Solution {
 public:
-    int numberOfSubstrings(string s) {
+    int helper(string s){
         unordered_map<char,int> m;
-        m['a']=-1;
-        m['b']=-1;
-        m['c']=-1;
+        int l=0;
         int r=0;
         int ans=0;
+        int uni=0;
         while(r<s.size()){
-            m[s[r]]=r;
-            int mi=min(m['a'],min(m['b'],m['c']));
-            if(mi!=-1){
-                ans+=(mi+1);
+            m[s[r]]++;
+            if(m[s[r]]==1){
+                uni++;
+            }
+            if(uni==3){
+                while(uni==3){
+                    ans+=(s.size()-r);
+                    m[s[l]]--;
+                    if(m[s[l]]==0){
+                        uni--;
+                    }
+                    l++;
+                }
             }
             r++;
         }
         return ans;
+    }
+    int numberOfSubstrings(string s) {
+        return helper(s);
     }
 };
