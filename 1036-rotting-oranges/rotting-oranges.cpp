@@ -1,32 +1,35 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& grid,int r,int c,int min){
-        if(r<0 || c<0 || r>grid.size()-1 || c>grid[r].size()-1 || grid[r][c]==0 || (grid[r][c]<min && grid[r][c]>1)){
+    void dfs(vector<vector<int>>& grid,int i,int j,int count){
+        if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size() || grid[i][j]==0 || (grid[i][j]<count && grid[i][j]>1)){
             return;
         }
-        grid[r][c]=min;
-        dfs(grid,r-1,c,min+1);
-        dfs(grid,r,c+1,min+1);
-        dfs(grid,r,c-1,min+1);
-        dfs(grid,r+1,c,min+1);
+        grid[i][j]=count;
+        dfs(grid,i+1,j,count+1);
+        dfs(grid,i-1,j,count+1);
+        dfs(grid,i,j+1,count+1);
+        dfs(grid,i,j-1,count+1);
         return;
     }
     int orangesRotting(vector<vector<int>>& grid) {
+        int x=0;
+        int y=0;
         for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[i].size();j++){
+            for(int j=0;j<grid[0].size();j++){
                 if(grid[i][j]==2){
                     dfs(grid,i,j,2);
                 }
             }
         }
-        int m=2;
+        int ans=2;
         for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[i].size();j++){
-                if(grid[i][j]==1)
-                return -1;
-                m=max(m,grid[i][j]);
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==1){
+                    return -1;
+                }
+                ans=max(ans,grid[i][j]);
             }
         }
-        return m-2;
+        return ans-2;
     }
 };
