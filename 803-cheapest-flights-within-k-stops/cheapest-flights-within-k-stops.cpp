@@ -8,12 +8,12 @@ public:
             int cost=flights[i][2];
             g[u].push_back({v,cost});
         }
-        queue<pair<int, pair<int, int>>> pq;
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
         vector<int> ans(n,INT_MAX);
         pq.push({0,{src,0}});
         ans[src]=0;
         while(!pq.empty()){
-            auto temp=pq.front();
+            auto temp=pq.top();
             int cost=temp.second.second;
             int nk=temp.first;
             int node=temp.second.first;
@@ -23,7 +23,6 @@ public:
                 auto temp2=g[node][i];
                 int c=temp2.second;
                 int n=temp2.first;
-                
                 if(ans[n]>c+cost){
                     ans[n]=c+cost;
                     pq.push({nk+1,{n,ans[n]}});
