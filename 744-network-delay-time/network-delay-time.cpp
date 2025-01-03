@@ -21,8 +21,8 @@ public:
                 auto temp2=g[node][i];
                 int w=temp2.second;
                 int n=temp2.first;
-                if(ans[n]>ans[node]+w){
-                    ans[n]=ans[node]+w;
+                if(ans[n]>wt+w){
+                    ans[n]=wt+w;
                     pq.push({ans[n],n});
                 }
             }
