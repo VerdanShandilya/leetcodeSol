@@ -8,20 +8,25 @@ public:
                 five++;
             }
             else if(bills[i]==10){
-                five--;
-                ten++;
-            }
-            else{
-                if(ten>=1 && five>=1){
-                    ten--;
+                if(five>0){
                     five--;
+                    ten++;
                 }
                 else{
-                    five-=3;
+                    return false;
                 }
             }
-            if(five<0 || ten<0){
-                return false;
+            else{
+                if(five>0 && ten>0){
+                    five--;
+                    ten--;
+                }
+                else if(ten==0 && five>2){
+                    five=five-3;
+                }
+                else{
+                    return false;
+                }
             }
         }
         return true;
