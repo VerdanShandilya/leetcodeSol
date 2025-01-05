@@ -1,12 +1,14 @@
 class Solution {
 public:
-    string largestOddNumber(string num) {
-        for(int i=num.size()-1;i>=0;i--){
-            int x=int(num[i]);
-            if(x%2!=0){
-                return num.substr(0,i+1);
+    string largestOddNumber(string nums) {
+        string ans="";
+        for(int i=nums.size()-1;i>=0;i--){
+            int num=(int)nums[i];
+            if(num%2!=0){
+                ans=nums.substr(0,i+1);
+                return ans;
             }
         }
-        return "";
+        return ans;
     }
 };
