@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int helper(vector<int>& coins, int amount,int index,vector<vector<int>> &dp){
-        if(amount<0 || index>coins.size()-1){
+    int helper(vector<int>& coins,int index,int amount,vector<vector<int>> &dp){
+        if(index>=coins.size() || amount<0){
             return INT_MAX-1;
         }
         if(dp[index][amount]!=-1){
@@ -10,13 +10,13 @@ public:
         if(amount==0){
             return 0;
         }
-        int a=1+helper(coins,amount-coins[index],index,dp);
-        int b=helper(coins,amount,index+1,dp);
-        return dp[index][amount]=min(a,b);
+        int pick=1+helper(coins,index,amount-coins[index],dp);
+        int nopick=helper(coins,index+1,amount,dp);
+        return dp[index][amount]=min(pick,nopick);
     }
     int coinChange(vector<int>& coins, int amount) {
-        vector<vector<int>> dp(coins.size(),vector<int> (amount+1,-1));
-        int ans=helper(coins,amount,0,dp);
+        vector<vector<int>> dp(coins.size()+1,vector<int> (amount+1,-1));
+        int ans=helper(coins,0,amount,dp);
         if(ans==INT_MAX-1){
             return -1;
         }
