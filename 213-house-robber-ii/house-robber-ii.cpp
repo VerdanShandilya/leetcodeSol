@@ -1,30 +1,24 @@
 class Solution {
-public:
-    int robber(vector<int>& nums,vector<int> &dp1,int i){
-        if(i>nums.size()-1){
+public: 
+    int helper(vector<int> &nums,int index,vector<int> &dp){
+        if(index>=nums.size()){
             return 0;
         }
-        if(dp1[i]!=-1){
-            return dp1[i];
+        if(dp[index]!=-1){
+            return dp[index];
         }
-        int a=nums[i]+robber(nums,dp1,i+2);
-        int b=robber(nums,dp1,i+1);
-        return dp1[i]=max(a,b);
+        int rob=nums[index]+helper(nums,index+2,dp);
+        int norob=helper(nums,index+1,dp);
+        return dp[index]=max(rob,norob);
     }
     int rob(vector<int>& nums) {
-        if(nums.size()<2){
-            return nums[0];
-        }
-        vector<int> v1(nums.size()-1,0),v2(nums.size()-1,0);
-        vector<int> dp1(nums.size()+1,-1),dp2(nums.size()+1,-1);
-        for(int i=0;i<nums.size()-1;i++){
-            v1[i]=nums[i];
-        }
-        for(int i=1;i<nums.size();i++){
-            v2[i-1]=nums[i];
-        }
-        int a=robber(v1,dp1,0);
-        int b=robber(v2,dp2,0);
-        return max(a,b);
+        vector<int> dp1(nums.size()+1,-1);
+        vector<int> dp2(nums.size()+1,-1);
+        if (nums.size() == 1) return nums[0];
+        vector<int> a(nums.begin()+1,nums.end());
+        vector<int> b(nums.begin(),nums.end()-1);
+        int ans1=helper(a,0,dp1);
+        int ans2=helper(b,0,dp2);
+        return max(ans1,ans2);
     }
 };
