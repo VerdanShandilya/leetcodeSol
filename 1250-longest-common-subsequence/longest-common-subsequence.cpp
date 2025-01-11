@@ -7,12 +7,14 @@ public:
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
-        int a=0;
+        int a=0,b=0,c=0;
         if(s1[i]==s2[j]){
             a=1+helper(s1,s2,i+1,j+1,dp);
         }
-        int b=helper(s1,s2,i,j+1,dp);
-        int c=helper(s1,s2,i+1,j,dp);
+        else{
+            b=helper(s1,s2,i,j+1,dp);
+            c=helper(s1,s2,i+1,j,dp);
+        }
         return dp[i][j]=max({a,b,c});
     }
     int longestCommonSubsequence(string text1, string text2) {
