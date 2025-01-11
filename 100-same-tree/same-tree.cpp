@@ -12,13 +12,13 @@
 class Solution {
 public:
     bool helper(TreeNode* p, TreeNode* q){
-        if(p==nullptr && q!=nullptr){
+        if(!p && q){
             return false;
         }
-        if(p!=nullptr && q==nullptr){
+        if(p && !q){
             return false;
         }
-        if(p==nullptr && q==nullptr){
+        if(!p && !q){
             return true;
         }
         if(p->val!=q->val){
