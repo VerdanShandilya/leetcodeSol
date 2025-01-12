@@ -1,28 +1,20 @@
 class Solution {
 public:
-    vector<string> helper(vector<string> &ans,int o,int c,string a){
-        if(o==0 && c==0){
+    void helper(int i,int j,string a,vector<string> &ans){
+        if(i==0 && j==0){
             ans.push_back(a);
-            return ans;
+            return;
         }
-        if(o==c){
-            helper(ans,o-1,c,a+'(');
+        if(i>0){
+            helper(i-1,j,a+'(',ans);
         }
-        else if(o==0){
-           helper(ans,o,c-1,a+')'); 
-        }
-        // else if(c==0){
-        //     helper(ans,o-1,c,a+'(');
-        // }
-        else{
-            helper(ans,o-1,c,a+'(');
-            helper(ans,o,c-1,a+')');
-        }
-        return ans;
+        if(i<j){
+            helper(i,j-1,a+')',ans);
+        }    
     }
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        return helper(ans,n,n,"");
-        
+        helper(n,n,"",ans);
+        return ans;
     }
 };
