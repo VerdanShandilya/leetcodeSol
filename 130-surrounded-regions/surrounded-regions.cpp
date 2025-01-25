@@ -5,36 +5,35 @@ public:
         int m=board[0].size();
         vector<vector<bool>> vis(n,vector<bool> (m,false));
         queue<pair<int,int>> q;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if((i==0 || j==0 || i==n-1 || j==m-1) &&board[i][j]=='O' ){
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[0].size();j++){
+                if(board[i][j]=='O' &&(i==0 || j==0 ||i==n-1 || j==m-1)){
                     q.push({i,j});
                     vis[i][j]=true;
                 }
             }
         }
-        vector<pair<int,int>> dir={{-1, 0},{1, 0},{0, -1},{0, 1}};
+        vector<pair<int,int>> dir={{-1,0}, {1,0}, {0,-1}, {0,1}};
         while(!q.empty()){
             auto temp=q.front();
+            q.pop();
             int row=temp.first;
             int col=temp.second;
-            q.pop();
             vis[row][col]=true;
-            for(auto temp2 : dir){
-                int nrow=row+temp2.first;
-                int ncol=col+temp2.second;
-                if(nrow>=0 && ncol>=0 && nrow<=board.size()-1 && ncol<=board[0].size()-1 && !vis[nrow][ncol] && board[nrow][ncol]=='O'){
+            for(auto [x,y] : dir){
+                int nrow=row+x;
+                int ncol=col+y;
+                if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && board[nrow][ncol]=='O' && !vis[nrow][ncol]){
                     q.push({nrow,ncol});
                 }
             }
         }
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(board[i][j]=='O' && !vis[i][j]){
+                if(!vis[i][j]){
                     board[i][j]='X';
                 }
             }
         }
-        return;
     }
 };
