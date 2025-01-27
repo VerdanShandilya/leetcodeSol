@@ -1,39 +1,37 @@
 class Solution {
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k){
         vector<vector<pair<int,int>>> g(n);
         for(int i=0;i<flights.size();i++){
             int u=flights[i][0];
             int v=flights[i][1];
-            int cost=flights[i][2];
-            g[u].push_back({v,cost});
+            int w=flights[i][2];
+            g[u].push_back({v,w});
         }
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+        priority_queue<pair<int,pair<int,int>> , vector<pair<int,pair<int,int>>> ,greater<pair<int,pair<int,int>>>> q;
+        q.push({0,{0,src}});
         vector<int> ans(n,INT_MAX);
-        pq.push({0,{src,0}});
-        ans[src]=0;
-        while(!pq.empty()){
-            auto temp=pq.top();
-            int cost=temp.second.second;
-            int nk=temp.first;
-            int node=temp.second.first;
-            pq.pop();
-            if (nk > k) continue;
+        while(!q.empty()){
+            int stops=q.top().first;
+            int cost=q.top().second.first;
+            int node=q.top().second.second;
+            q.pop();
+            if(stops>k){
+                continue;
+            }
             for(int i=0;i<g[node].size();i++){
-                auto temp2=g[node][i];
-                int c=temp2.second;
-                int n=temp2.first;
-                if(ans[n]>c+cost){
-                    ans[n]=c+cost;
-                    pq.push({nk+1,{n,ans[n]}});
+                auto temp=g[node][i];
+                int c=temp.second;
+                int no=temp.first;
+                if(cost+c<ans[no]){
+                    ans[no]=cost+c;
+                    q.push({stops+1,{ans[no],no}});
                 }
             }
         }
-        if(ans[dst]==INT_MAX){
-            return -1;
-        }
+        if(ans[dst]==INT_MAX)
+        return -1;
         return ans[dst];
+
     }
 };
-
-
