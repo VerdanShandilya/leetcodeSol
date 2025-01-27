@@ -1,34 +1,33 @@
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        priority_queue<pair<int,int> ,vector<pair<int,int>> ,greater<pair<int,int>>> pq;
-        vector<vector<pair<int,int>>> g(n);
+        vector<vector<pair<int,int>>> g(n+1);
         for(int i=0;i<times.size();i++){
-            int u=times[i][0]-1;
-            int v=times[i][1]-1;
-            int wt=times[i][2];
-            g[u].push_back({v,wt});
+            int u=times[i][0];
+            int v=times[i][1];
+            int w=times[i][2];
+            g[u].push_back({v,w});
         }
-        pq.push({0,k-1});
-        vector<int> ans(n,INT_MAX);
-        ans[k-1]=0;
-        while(!pq.empty()){
-            auto temp=pq.top();
-            int wt=temp.first;
-            int node=temp.second;
-            pq.pop();
+        vector<int> ans(n+1,INT_MAX);
+        priority_queue<pair<int,int>, vector<pair<int,int>> ,greater<pair<int,int>>> q;
+        q.push({0,k});
+        ans[k]=0;
+        while(!q.empty()){
+            int time=q.top().first;
+            int node=q.top().second;
+            q.pop();
             for(int i=0;i<g[node].size();i++){
-                auto temp2=g[node][i];
-                int w=temp2.second;
-                int n=temp2.first;
-                if(ans[n]>wt+w){
-                    ans[n]=wt+w;
-                    pq.push({ans[n],n});
+                auto temp=g[node][i];
+                int t=temp.second;
+                int no=temp.first;
+                if(ans[no]==INT_MAX || t+time<ans[no]){
+                    ans[no]=t+time;
+                    q.push({ans[no],no});
                 }
             }
         }
         int res=0;
-        for(int i=0;i<ans.size();i++){
+        for(int i=1;i<ans.size();i++){
             if(ans[i]==INT_MAX){
                 return -1;
             }
