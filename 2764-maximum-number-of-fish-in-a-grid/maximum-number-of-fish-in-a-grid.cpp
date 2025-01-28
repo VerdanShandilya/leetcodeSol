@@ -1,27 +1,39 @@
 class Solution {
 public:
-    int dfs(vector<vector<int>>& grid,int i,int j,vector<vector<bool>> &vis){
+    int bfs(vector<vector<int>>& grid,int i,int j){
         int n=grid.size();
         int m=grid[0].size();
-        if(i<0 || j<0 || i>=n || j>=m || vis[i][j] || !grid[i][j]){
-            return 0;
-        }
+        queue<pair<int,int>> q;
+        vector<pair<int,int>> dir={{1,0}, {0,1}, {-1,0}, {0,-1}};
+        vector<vector<bool>> vis(n, vector<bool> (m,false));
+        q.push({i,j});
         vis[i][j]=true;
-        int up=dfs(grid,i-1,j,vis);
-        int down=dfs(grid,i+1,j,vis);
-        int left=dfs(grid,i,j-1,vis);
-        int right=dfs(grid,i,j+1,vis);
-        return grid[i][j]+up+down+left+right;
+        int tans=grid[i][j];
+        while(!q.empty()){
+            auto temp=q.front();
+            int row=temp.first;
+            int col=temp.second;
+            q.pop();
+            for(auto i : dir){
+                int nrow=row+i.first;
+                int ncol=col+i.second;
+                if(nrow>-1 && ncol>-1 && nrow<n && ncol<m && !vis[nrow][ncol] && grid[nrow][ncol]>0){
+                    q.push({nrow,ncol});
+                    vis[nrow][ncol]=true;
+                    tans+=grid[nrow][ncol];
+                }
+            }
+        }
+        return tans;
     }
     int findMaxFish(vector<vector<int>>& grid) {
+        int ans=0;
         int n=grid.size();
         int m=grid[0].size();
-        int ans=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]!=0){
-                    vector<vector<bool>> vis(n, vector<bool> (m,false));
-                    ans=max(dfs(grid,i,j,vis),ans);
+                if(grid[i][j]>0){
+                    ans=max(ans,bfs(grid,i,j));
                 }
             }
         }
