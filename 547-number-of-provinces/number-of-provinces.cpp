@@ -1,39 +1,46 @@
 class Solution {
 public:
-    void bfs(vector<vector<int>> &g , vector<bool> &vis ,int node){
-        vis[node]=true;
-        queue<int> q;
-        q.push(node);
-        while(!q.empty()){
-            int temp=q.front();
-            q.pop();
-            for(int i=0;i<g[temp].size();i++){
-                if(!vis[g[temp][i]]){
-                    vis[g[temp][i]]=true;
-                    q.push(g[temp][i]);
-                }
-            }
+    int findp(vector<int> &par,int u){
+        if(par[u]==u){
+            return u;
         }
-        return;
+        return par[u]=findp(par,par[u]);
     }
-    int findCircleNum(vector<vector<int>>& isConnected) {
-        vector<vector<int>> g(isConnected.size());
-        for(int i=0;i<isConnected.size();i++){
-            for(int j=0;j<isConnected[i].size();j++){
-                int u=isConnected[i][j];
-                if(i!=j && u==1){
-                    g[i].push_back(j);
+
+    void unionset(vector<int> &par,vector<int> &size,int u,int v){
+        int pu=findp(par,u);
+        int pv=findp(par,v);
+        if(pu==pv){
+            return;
+        }
+        if(size[pu]>size[pv]){
+            par[pv]=par[pu];
+            size[pu]+=size[pv];
+        }
+        else{
+            par[pu]=par[pv];
+            size[pv]+=size[pu];
+        }
+    }
+
+
+    int findCircleNum(vector<vector<int>>& isc) {
+        vector<int> size(isc.size(),1);
+        vector<int> par(isc.size());
+        for(int i=0;i<isc.size();i++){
+            par[i]=i;
+        }
+        for(int i=0;i<isc.size();i++){
+            for(int j=0;j<isc[0].size();j++){
+                if(isc[i][j]==1){
+                    unionset(par,size,i,j);
                 }
             }
         }
-        vector<bool> vis(isConnected.size(),false);
-        int ans=0;
-        for(int i=0;i<isConnected.size();i++){
-            if(!vis[i]){
-                ans++;
-                bfs(g,vis,i);
-            }
+        set<int> s;
+        for(int i=0;i<par.size();i++){
+            s.insert(findp(par,i));
         }
-        return ans;
+        return s.size();
     }
 };
