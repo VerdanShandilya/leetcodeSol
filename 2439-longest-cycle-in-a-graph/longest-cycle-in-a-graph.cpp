@@ -1,6 +1,6 @@
 class Solution {
 public:
-int res=-1;
+    int res=-1;
     void dfs(vector<bool> &vis,vector<int>& edges,vector<int> &depth,int ans,int node){
         vis[node]=true;
         depth[node]=ans;
