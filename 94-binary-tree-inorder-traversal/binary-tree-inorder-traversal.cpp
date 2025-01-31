@@ -27,17 +27,16 @@ public:
                 ans.push_back(add->val);
                 continue;
             }
-            if(add->left){
-                s.push({add->left,0});
+            if(add->right){
+                s.push({add->right,0});
             }
             if(flag==0){
                 s.push({add,1});
             }
-            if(add->right){
-                s.push({add->right,0});
+            if(add->left){
+                s.push({add->left,0});
             }
         }
-        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
