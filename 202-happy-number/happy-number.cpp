@@ -12,17 +12,14 @@ public:
     bool isHappy(int n) {
         unordered_map<int,int> m;
         int ans=0;
-        while(true){
+        while(ans!=1){
             ans=helper(n);
             n=ans;
-            if(ans==1){
-                return true;
-            }
             if(m[ans]==2){
                 return false;
             }
             m[ans]++;
-        } 
+        }
         return true;
     }
 };
