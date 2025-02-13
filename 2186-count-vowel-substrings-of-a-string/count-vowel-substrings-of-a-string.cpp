@@ -1,30 +1,36 @@
 class Solution {
 public:
-    int countVowelSubstrings(string word) {
-        int a,e,i,o,u;
-        a=e=i=o=u=0;
-        int cons=0;
+    int helper(string word,int k){
+        unordered_map<char,int> m;
+        unordered_map<char,int> vowels;
+        vowels['a']=0;
+        vowels['e']=0;
+        vowels['i']=0;
+        vowels['o']=0;
+        vowels['u']=0;
         int ans=0;
-        for(int z=0;z<word.size();z++){
-            a=e=i=o=u=cons=0;
-            for(int j=z;j<word.size();j++){
-                if(word[j]=='a')
-                a++;
-                else if(word[j]=='e')
-                e++;
-                else if(word[j]=='i')
-                i++;
-                else if(word[j]=='o')
-                o++;
-                else if(word[j]=='u')
-                u++;
-                else
-                break;
-                if(a>0 && e>0 && i>0 && o>0 && u>0){
-                    ans++;
-                }
+        int l=0;
+        int r=0;
+        while(r<word.size()){
+            if(vowels.find(word[r])==vowels.end()){
+                m.clear();
+                r++;
+                l=r;
+                continue;
             }
+            m[word[r]]++;
+            while(m.size()>k){
+                m[word[l]]--;
+                if(m[word[l]]==0)
+                m.erase(word[l]);
+                l++;
+            }
+            ans+=r-l+1;
+            r++;
         }
         return ans;
+    }
+    int countVowelSubstrings(string word) {
+        return helper(word,5)-helper(word,4);
     }
 };
