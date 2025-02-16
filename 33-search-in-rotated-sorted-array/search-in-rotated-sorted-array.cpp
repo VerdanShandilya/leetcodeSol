@@ -27,6 +27,6 @@ public:
                 r=mid;
             }
         }
-        return max(bs(nums,target,0,l),bs(nums,target,l,nums.size()-1));
+        return max(bs(nums,target,0,r),bs(nums,target,r,nums.size()-1));
     }
 };
