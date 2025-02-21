@@ -5,8 +5,8 @@ public:
             return 0;
         }
         int l=0;
-        int count=0;
         int r=0;
+        int ans=0;
         int sum=0;
         while(r<nums.size()){
             sum+=nums[r];
@@ -14,10 +14,10 @@ public:
                 sum-=nums[l];
                 l++;
             }
-            count+=r-l+1;
+            ans+=r-l+1;
             r++;
         }
-        return count;
+        return ans;
     }
     int numSubarraysWithSum(vector<int>& nums, int goal) {
         return helper(nums,goal)-helper(nums,goal-1);
