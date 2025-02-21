@@ -5,22 +5,19 @@ public:
         for(char i='A';i<='Z';i++){
             int l=0;
             int r=0;
-            int rep=0;
+            int copy=k;
             while(r<s.size()){
-                if(s[r]==i){
-                    r++;
+                if(s[r]!=i){
+                    copy--;
                 }
-                else if(s[r]!=i && rep<k){
-                    rep++;
-                    r++;
-                }
-                else if(s[l]==i){
+                while(copy<0){
+                    if(s[l]!=i){
+                        copy++;
+                    }
                     l++;
                 }
-                else{
-                    l++;rep--;
-                }
-                ans=max(ans,r-l);
+                ans=max(ans,r-l+1);
+                r++;
             }
         }
         return ans;
