@@ -3,6 +3,9 @@ public:
     int helper(int i,int j,unordered_map<int,int> &m,vector<int> &arr,vector<vector<int>> &dp){
         int count=2;
         int a = arr[i], b = arr[j];
+        if(dp[i][j]!=-1){
+                return dp[i][j];
+            }
         while(true){
             int sum = a + b;
             if(m.find(sum)!=m.end()){
