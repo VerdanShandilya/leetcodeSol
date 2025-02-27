@@ -1,37 +1,27 @@
 class Solution {
 public:
-    int helper(int i,int j,unordered_map<int,int> &m,vector<int> &arr,vector<vector<int>> &dp){
-        int count=2;
-        int a = arr[i], b = arr[j];
-        if(dp[i][j]!=-1){
-                return dp[i][j];
-            }
-        while(true){
-            int sum = a + b;
-            if(m.find(sum)!=m.end()){
-                a = b;
-                b = sum;
-                count++;
-            }
-            else{
-                break;
-            }
-        }
-        return dp[i][j]=count;
-    }
     int lenLongestFibSubseq(vector<int>& arr) {
-        unordered_map<int,int> m;
-        int maxsize = arr[arr.size()-1] + arr[arr.size()-2];
-        vector<vector<int>> dp(arr.size()+1,vector<int> (arr.size()+1,-1));
-        for(int i=0;i<arr.size();i++){
-            m[arr[i]]=i;
+        unordered_map<int, int> m;
+        int n = arr.size();
+        vector<vector<int>> dp(n, vector<int>(n, 2));
+        int ans = 0;
+        
+        for(int i=0; i<n;i++) {
+            m[arr[i]] = i;
         }
-        int ans=0;
-        for(int i=0;i<arr.size();i++){
-            for( int j=i+1;j<arr.size();j++){
-                ans=max(ans,helper(i,j,m,arr,dp));
+        for(int i=0; i<n;i++) { 
+            for(int j = 0;j<i;j++) {
+                int a = arr[j], b = arr[i];
+                int sum = a + b;
+                
+                if(m.find(sum) != m.end()){
+                    int k = m[sum];
+                    dp[i][k] = dp[j][i] + 1;
+                    ans = max(ans, dp[i][k]);
+                }
             }
         }
-        return(ans>=3) ? ans : 0;
+        
+        return (ans >= 3) ? ans : 0;
     }
 };
