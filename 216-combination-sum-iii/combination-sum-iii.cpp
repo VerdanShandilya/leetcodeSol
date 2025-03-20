@@ -1,13 +1,13 @@
 class Solution {
 public:
     void helper(int k,int &n,vector<vector<int>> &ans,vector<int> &v,int index,int sum,vector<int> &temp){
+        if(index>temp.size()){
+            return;
+        }
         if(k==0){
             if(sum==n){
                 ans.push_back(v);
             }
-            return;
-        }
-        if(index>=temp.size() || k<0){
             return;
         }
         v.push_back(temp[index]);
