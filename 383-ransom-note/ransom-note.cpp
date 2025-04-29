@@ -4,12 +4,14 @@ public:
         unordered_map<char,int> m;
         for(auto i : magazine){
             m[i]++;
-        } 
+        }
         for(auto i : ransomNote){
             if(m.find(i)!=m.end()){
-                m[i]--;
-                if(m[i]==0){
+                if(m[i]==1){
                     m.erase(i);
+                }
+                else{
+                    m[i]--;
                 }
             }
             else{
