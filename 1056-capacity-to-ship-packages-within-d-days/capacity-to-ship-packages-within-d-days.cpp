@@ -1,32 +1,26 @@
 class Solution {
 public:
     int shipWithinDays(vector<int>& weights, int days) {
-        int high=0;
-        int l=-1;
-        for(int i=0;i<weights.size();i++){
-            high+=weights[i];
-            l=max(weights[i],l);
-        }
+        int l=*max_element(weights.begin(),weights.end());
+        int r=accumulate(weights.begin(),weights.end(),0);
         int ans=0;
-        while(l<=high){
-            int mid=l+(high-l)/2;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            int sum=0;
             int tdays=1;
-            int cap=0;
             for(int i=0;i<weights.size();i++){
-                if(cap+weights[i]<=mid){
-                    cap+=weights[i];
-                }
-                else{
+                sum+=weights[i];
+                if(sum>mid){
                     tdays++;
-                    cap=weights[i];
+                    sum=weights[i];
                 }
             }
-            if(tdays>days){
-                l=mid+1;
+            if(tdays<=days){
+                ans=mid;
+                r=mid-1;
             }
             else{
-                ans=mid;
-                high=mid-1;
+                l=mid+1;
             }
         }
         return ans;
