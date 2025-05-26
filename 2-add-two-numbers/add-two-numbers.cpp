@@ -11,55 +11,48 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int extra=0;
-        int sum=0;
-        ListNode* ans;
-        ListNode* ans1;
-        ListNode* temp;
-        temp=l1;
-        int cnt=0;
-        int cnt1=0;
-        while(temp){
-            temp=temp->next;
-            cnt++;
+        if(!l1){
+            return l2;
         }
-        temp=l2;
-        while(temp){
-            temp=temp->next;
-            cnt1++;
-        }
-        if(cnt>=cnt1){
-            ans=l1;
-            ans1=l2;
-        }
-        else{
-            ans=l2;
-            ans1=l1;
-        }
-        while(ans!=nullptr || ans1!=nullptr){
-            sum=0;
-            if(ans!=nullptr){
-                sum+=ans->val;
-            }
-            if(ans1!=nullptr){
-                sum+=ans1->val;
-                ans1=ans1->next;
-            }
-            sum+=extra;
-            extra=sum/10;
-            ans->val=sum%10;
-            if(ans->next==nullptr){
-                temp=ans;
-            }
-            ans=ans->next;
-        }
-        if(extra!=0){
-            ListNode* dummy2=new ListNode(extra);
-            temp->next=dummy2;
-        }
-        if(cnt>=cnt1){
+        if(!l2){
             return l1;
         }
-        return l2;
+        ListNode* dummy= new ListNode(0);
+        ListNode* ans=dummy;
+        int rem=0;
+        while(l2 && l1){
+            int value=l1->val+l2->val+rem;
+            ListNode* temp=new ListNode();
+            dummy->next=temp;
+            temp->val=(value%10);
+            rem=value/10;
+            l2=l2->next;
+            l1=l1->next;
+            dummy=dummy->next;
+        }
+        while(l1){
+            int value=l1->val+rem;
+            ListNode* temp=new ListNode();
+            dummy->next=temp;
+            temp->val=(value%10);
+            rem=value/10;
+            l1=l1->next;
+            dummy=dummy->next;
+        }
+        while(l2){
+            int value=l2->val+rem;
+            ListNode* temp=new ListNode();
+            dummy->next=temp;
+            temp->val=(value%10);
+            rem=value/10;
+            l2=l2->next;
+            dummy=dummy->next;
+        }
+        if(rem){
+            ListNode* temp=new ListNode();
+            dummy->next=temp;
+            temp->val=(rem);
+        }
+        return ans->next;
     }
 };
